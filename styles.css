@@ -1,0 +1,305 @@
+/* ============================
+   BNBE Theme — Embeddz Red + Teal Accent (Pro polish)
+   ============================ */
+:root{
+  /* Primary stays the same */
+  --brand:#CD4125;
+
+  /* New accent: Professional Midnight Navy */
+  --accent:#1B365D;        /* main */
+  --accent-700:#142946;    /* darker for text/lines */
+  --accent-600:#173053;    /* hover state */
+  --accent-500:#1B365D;    /* = accent */
+  --accent-100:#E8EEF7;    /* pale wash for badges/backgrounds */
+
+  --white:#FFFFFF;
+  --surface:#F5F7FA;   /* light gray for even sections */
+  --line:#E6EAF0;
+  --ink:#0B1220;
+  --muted:#5C667C;
+}
+
+/* Base */
+html:focus-within{scroll-behavior:smooth;}
+@media (prefers-reduced-motion:reduce){
+  html:focus-within{scroll-behavior:auto;}
+  *{animation-duration:1ms !important; animation-iteration-count:1 !important; transition-duration:1ms !important;}
+}
+
+body{
+  color:var(--ink);
+  background:#fff;
+  -webkit-tap-highlight-color:rgba(205,65,37,.15);
+}
+
+/* Typography polish */
+h1,h2,h3,h4,h5{color:var(--ink); letter-spacing:.2px;}
+h2{margin-bottom: .35rem;}
+.lead{letter-spacing:.1px;}
+.text-muted,.muted{color:var(--muted) !important;}
+
+/* Links */
+a{color:var(--brand); text-decoration:none; transition:color var(--transition);}
+a:hover{color:var(--brand-700);}
+
+/* Navbar polish */
+.navbar{
+  backdrop-filter:saturate(180%) blur(8px);
+  -webkit-backdrop-filter:saturate(180%) blur(8px);
+}
+.navbar .nav-link{
+  position:relative;
+  padding:.5rem .75rem;
+  color:#1d2635;
+  transition:color var(--transition);
+}
+.navbar .nav-link:hover,
+.navbar .nav-link:focus{color:var(--brand);}
+.navbar .nav-link.active{
+  color:var(--brand);
+}
+.navbar .nav-link::after{
+  content:""; position:absolute; left:.6rem; right:.6rem; bottom:.25rem;
+  height:2px; background:linear-gradient(90deg,var(--brand),var(--accent));
+  transform:scaleX(0); transform-origin:left; transition:transform var(--transition);
+}
+.navbar .nav-link:hover::after,
+.navbar .nav-link:focus::after,
+.navbar .nav-link.active::after{transform:scaleX(1);}
+
+/* Buttons */
+.btn{
+  transition:transform var(--transition), box-shadow var(--transition), background-color var(--transition), color var(--transition);
+  will-change:transform, box-shadow;
+  border-radius:10px;
+}
+.btn-primary{
+  --bs-btn-color:#fff;
+  --bs-btn-bg:var(--brand);
+  --bs-btn-border-color:var(--brand);
+  --bs-btn-hover-bg:var(--brand-600);
+  --bs-btn-hover-border-color:var(--brand-600);
+  --bs-btn-focus-shadow-rgb:205,65,37;
+}
+.btn-success{
+  --bs-btn-color:#fff;
+  --bs-btn-bg:var(--accent);
+  --bs-btn-border-color:var(--accent);
+  --bs-btn-hover-bg:var(--accent-600);
+  --bs-btn-hover-border-color:var(--accent-600);
+}
+.btn-outline-primary{
+  --bs-btn-color:var(--brand);
+  --bs-btn-border-color:var(--brand);
+  --bs-btn-hover-bg:var(--brand);
+  --bs-btn-hover-border-color:var(--brand);
+  --bs-btn-hover-color:#fff;
+}
+/* Micro-interactions */
+.btn:hover{transform:translateY(-1px); box-shadow:var(--shadow-sm);}
+.btn:active{transform:translateY(0);}
+.btn:focus-visible{
+  outline:3px solid color-mix(in srgb, var(--accent) 40%, transparent);
+  outline-offset:2px;
+}
+
+/* Badges */
+.badge,
+.badge-brand,
+.badge-accent{
+  background: var(--accent-100);
+  color: var(--accent-700);
+  border: 1px solid white;
+}
+.badge-brand{
+  background:var(--brand-100);
+  color:var(--brand-700);
+  border-color:rgba(205,65,37,.18);
+}
+.badge-accent{
+  background:var(--accent-100);
+  color:var(--accent-700);
+  border-color:rgba(0,183,194,.18);
+}
+
+/* Hero with brand+accent wash + adjustable dimmer */
+.bg-hero{
+  position:relative; min-height:62vh; display:flex; align-items:center; color:#fff;
+  background-image: var(--hero-img, url('assets/hero.jpg'));
+  background-size:cover; background-position:center; background-repeat:no-repeat;
+}
+.bg-hero::before{
+  content:""; position:absolute; inset:0;
+  background: linear-gradient(135deg,
+    color-mix(in lab, var(--brand) 84%, transparent),
+    color-mix(in lab, var(--accent) 84%, transparent));
+  pointer-events:none;
+}
+.bg-hero::after{
+  content:""; position:absolute; inset:0;
+  background:rgba(0,0,0, var(--hero-dim));
+  pointer-events:none;
+}
+.bg-hero > .container{ position:relative; z-index:1; }
+
+/* Sections */
+.bg-light{ background:var(--surface) !important; }
+section + section{ scroll-margin-top: 84px; } /* avoid hidden anchors under fixed nav */
+
+/* Cards & interactive surfaces */
+.card{
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+}
+.card:hover{ box-shadow:var(--shadow-lg); }
+.card-img-top{ border-top-left-radius:var(--radius); border-top-right-radius:var(--radius); }
+
+/* Hover elevation utility */
+.hover-float{ transition:transform var(--transition), box-shadow var(--transition); }
+.hover-float:hover{ transform:translateY(-4px); box-shadow:var(--shadow-lg); }
+
+/* Reveal (gated by JS) */
+.reveal{ opacity:0; transform:translateY(18px); }
+.reveal.visible{ opacity:1; transform:none; transition:opacity .6s ease, transform .6s ease; }
+
+/* PCB gallery visuals */
+.pcb-gallery img{
+  height:140px; object-fit:cover; border-radius:10px; box-shadow:var(--shadow-sm);
+}
+
+/* Partners logos */
+.partner-logo{ max-height:80px; object-fit:contain; filter:saturate(1.1) contrast(1.05); }
+
+/* Forms (contrast + focus) */
+.form-control{ border-radius:10px; border-color:#D7DEE8; }
+.form-control:focus{
+  border-color:var(--brand);
+  box-shadow:0 0 0 .25rem color-mix(in srgb, var(--brand) 20%, transparent);
+}
+.form-check-input:focus{
+  box-shadow:0 0 0 .25rem color-mix(in srgb, var(--accent) 25%, transparent);
+}
+.form-check-input:checked{ background-color:var(--brand); border-color:var(--brand); }
+
+/* Small decorative label (optional under section titles) */
+.section-title-accent{
+  display:inline-block; padding:4px 10px; margin-bottom:.25rem;
+  background:linear-gradient(90deg, var(--brand-100), var(--accent-100));
+  border-radius:999px; color:var(--brand-700); font-weight:600;
+}
+
+/* Selection highlight */
+::selection{ background:var(--brand-400); color:#fff; }
+
+/* Mobile tweaks */
+@media (max-width: 768px){
+  .bg-hero{ min-height:56vh; }
+}
+
+
+/* ========= Pro Navbar ========= */
+.navbar-pro{
+  background: rgba(255,255,255,.98);
+  backdrop-filter: saturate(180%) blur(8px);
+  -webkit-backdrop-filter: saturate(180%) blur(8px);
+  transition: background-color 200ms cubic-bezier(.2,.7,.2,1),
+              box-shadow 200ms cubic-bezier(.2,.7,.2,1),
+              border-color 200ms cubic-bezier(.2,.7,.2,1);
+  border-bottom: 1px solid transparent;
+}
+
+/* Denser, solid header after scroll */
+.navbar-pro.is-scrolled{
+  background: rgba(255,255,255,.96);
+  box-shadow: var(--shadow-sm);
+  border-bottom-color: var(--line);
+}
+
+/* Brand treatment */
+.navbar-pro .navbar-brand{
+  letter-spacing:.2px;
+}
+
+/* Link polish */
+.navbar-pro .nav-link{
+  position: relative;
+  color:#1d2635;
+  padding:.55rem .75rem;
+  font-weight:500;
+  transition: color var(--transition);
+}
+.navbar-pro .nav-link:hover,
+.navbar-pro .nav-link:focus{
+  color:var(--brand);
+}
+
+/* Active underline indicator */
+.navbar-pro .nav-link::after{
+  content:"";
+  position:absolute; left:.6rem; right:.6rem; bottom:.25rem;
+  height:2px; background:linear-gradient(90deg, var(--brand), var(--accent));
+  transform:scaleX(0); transform-origin:left;
+  transition: transform var(--transition);
+}
+.navbar-pro .nav-link:hover::after,
+.navbar-pro .nav-link:focus::after,
+.navbar-pro .nav-link.active::after{
+  transform:scaleX(1);
+}
+.navbar-pro .nav-link.active{ color:var(--brand); }
+
+/* Toggler and collapsed menu polish */
+.navbar-pro .navbar-toggler{ border-color: #e9edf3; }
+.navbar-pro .navbar-collapse{
+  transition: background-color var(--transition);
+}
+@media (max-width:991.98px){
+  .navbar-pro .navbar-collapse{
+    background: rgba(255,255,255,.98);
+    backdrop-filter: saturate(150%) blur(6px);
+    -webkit-backdrop-filter: saturate(150%) blur(6px);
+    border-top:1px solid var(--line);
+    padding: .5rem .75rem;
+  }
+  .navbar-pro .nav-link{ padding:.65rem .5rem; }
+}
+
+/* Focus visibility for keyboard users */
+.navbar-pro .nav-link:focus-visible{
+  outline:3px solid color-mix(in srgb, var(--accent) 35%, transparent);
+  outline-offset:2px;
+  border-radius:6px;
+}
+
+.team-photo{
+  width:140px; height:140px; object-fit:cover;
+  margin:16px auto 0; display:block;
+  box-shadow: var(--shadow-sm);
+}
+
+/* --- Mobile overflow fix pack --- */
+
+/* 1) Never exceed viewport width */
+html, body, #main { max-width:100%; overflow-x:hidden; }
+
+/* 2) Media always scales down */
+img, picture, video, canvas, svg, iframe { max-width:100%; height:auto; display:block; }
+
+/* 3) Guard against Bootstrap row negative margins at small sizes */
+.container, .container-fluid { overflow-x:hidden; }
+
+/* 4) Card images & pictures fill their card without causing overflow */
+.card > img,
+.card > picture { width:100%; }
+
+/* 5) Reduce gutters on very small screens (prevents row bleed) */
+@media (max-width: 575.98px){
+  .row{ --bs-gutter-x: 1rem; } /* default is 1.5rem */
+}
+
+/* 6) Collapsed navbar panel should never exceed 100vw */
+.navbar-pro .navbar-collapse{ max-width:100vw; }
+
+/* 7) Long strings/URLs won’t push the layout */
+.lead, .card-text, .small, p, h1, h2, h3, h4, h5 { overflow-wrap:anywhere; word-break:break-word; }
